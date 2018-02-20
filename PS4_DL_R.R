@@ -1,12 +1,22 @@
 ########################################################
-#Let's edit the final function
+#Let's edit the preliminary function using debugging
+myFunction<-function(doorthing, doorthing2, x){ doorthing1<-doorthing2<-sample(1:3, 1) 
+browser()
+if (doorthing1==doorthing2){ x<-TRUE } else { x==FALSE } x
+}
+debug(myFunction)
+
 eval<-function(chosenDoor, carDoor,x){#This function evaluates the choices vs. the random draw
-chosenDoor<-sample(1:3,1)# we assign both values random numbers 1-3  
+browser()
+  chosenDoor<-sample(1:3,1)# we assign both values random numbers 1-3  
 carDoor<-sample(1:3,1)
 if(choice==draw){return(T)} else{return(F)}
 return(x)
 }
 eval()
+
+
+
 ########################################################
 #(1)
 chosenDoor<-sample(1:3,1)
@@ -81,4 +91,13 @@ game1 <-new("door", chosenDoor=1L, carDoor=2L, switch=TRUE)
             
            
 PlayGame(game1)
+#Here are the 2 simulations comparing the usefulness of switching vs. keeping one's original door
+sim1<-sapply(1:1000, function(i){PlayGame(new("door", chosenDoor=1L, carDoor=2L, switch=FALSE))})
+sim2<-sapply(1:1000, function(i){PlayGame(new("door", chosenDoor=1L, carDoor=2L, switch=TRUE))})
 
+table(sim1)[2]
+table(sim2)
+table(sim1)[2]>table(sim2)[2]
+#As the comparison of the outcomes of the simulations shows
+  #the number of winners for simulation 1 [switch= F] is not larger than
+    #the outcome for simulation 2 [switch]
